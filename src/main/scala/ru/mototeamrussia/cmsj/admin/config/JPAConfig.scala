@@ -6,6 +6,7 @@ import javax.sql.DataSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.{Bean, PropertySource, Configuration}
 import org.springframework.core.env.Environment
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 import org.springframework.orm.jpa.{JpaTransactionManager, LocalContainerEntityManagerFactoryBean, JpaVendorAdapter, JpaDialect}
 import org.springframework.orm.jpa.vendor.{Database, HibernateJpaVendorAdapter, HibernateJpaDialect}
@@ -14,7 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:application.properties")
+@EnableJpaRepositories(Array("ru.mototeamrussia.cmsj.persistence.repositories"))
+@PropertySource(Array("classpath:application.properties"))
 class JPAConfig {
   @Autowired
   var environment : Environment = _

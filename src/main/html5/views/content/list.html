@@ -1,7 +1,9 @@
-<div>
+<div ng-controller="ContentController">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Материалы</h1>
+            <button type="button" ng-click="articleList.changeTestEntity()" class="btn btn-default">Тест!</button>
+            <h3 ng-repeat="item in articleList.data">{{ item.title }}</h3>
         </div>
     </div>
 </div>

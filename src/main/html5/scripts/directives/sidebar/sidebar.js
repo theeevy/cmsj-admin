@@ -7,4 +7,4 @@ angular.module('cmsj-admin')
             restrict : 'E',
             replace : true
         }
-    })
+    });

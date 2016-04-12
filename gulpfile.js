@@ -4,6 +4,7 @@ const
     gulp = require('gulp'),
     inject = require('gulp-inject'),
     bowerFiles = require('main-bower-files'),
+    proxy = require('proxy-middleware'),
     browserSync = require('browser-sync'),
     path = require('path');
 
@@ -16,6 +17,9 @@ const
 
 
 gulp.task('serve', function(){
+    var proxyOptions = require('url').parse('http://localhost:8080/entity');
+    proxyOptions.route = '/entity';
+
     browserSync({
         notify: false,
         port: 9000,
@@ -23,7 +27,8 @@ gulp.task('serve', function(){
             baseDir: [paths.tmp, paths.app],
             routes: {
                 '/bower_components': 'bower_components'
-            }
+            },
+            middleware: [proxy(proxyOptions)]
         }
     });
 })

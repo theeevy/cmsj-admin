@@ -13,9 +13,9 @@ import org.springframework.web.servlet.view.velocity.{VelocityViewResolver, Velo
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(Array("ru.mototeamrussia.cmsj.admin", "ru.mototeamrussia.cmsj.persistence"))
-@PropertySource("classpath:application.properties")
-@Import(classOf[JPAConfig])
+@PropertySource(Array("classpath:application.properties"))
+@Import(Array(classOf[JPAConfig]))
+@ComponentScan(Array("ru.mototeamrussia.cmsj.admin"))
 class MvcConfig extends WebMvcConfigurerAdapter {
 
   override def addResourceHandlers(registry: ResourceHandlerRegistry): Unit = {
