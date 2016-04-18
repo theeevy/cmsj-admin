@@ -2,7 +2,8 @@
 
 angular.module('cmsj-admin', [  'ui.router',
                                 'ui.bootstrap',
-                                'ngResource'])
+                                'ngResource',
+                                'datatables'])
     .config(function($stateProvider, $urlRouterProvider, $resourceProvider){
         $urlRouterProvider.otherwise('/dashboard/home');
 
