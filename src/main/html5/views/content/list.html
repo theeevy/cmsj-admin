@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Материалы</h1>
-            <table datatable="ng" class="table table-hover table-striped">
+            <table datatable="ng" class="table">
                 <thead>
                     <tr>
                         <th>Состояние</th>
@@ -18,7 +18,7 @@
                 <tbody>
                     <tr ng-repeat="x in articleList.data">
                         <td>{{ x.state }}</td>
-                        <td><a ui-sref="dashboard.contentDetail">{{ x.title }}</a></td>
+                        <td><a ui-sref="cmsj.content.detail({contentId: x.id})">{{ x.title }}</a></td>
                         <td>{{ x.access }}</td>
                         <td>{{ x.created_by }}</td>
                         <td>{{ x.language }}</td>

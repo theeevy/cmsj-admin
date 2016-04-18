@@ -5,27 +5,31 @@ angular.module('cmsj-admin', [  'ui.router',
                                 'ngResource',
                                 'datatables'])
     .config(function($stateProvider, $urlRouterProvider, $resourceProvider){
-        $urlRouterProvider.otherwise('/dashboard/home');
+        $urlRouterProvider.otherwise('/cmsj/home');
 
         //$resourceProvider.stripTrailingSlashes();
 
         $stateProvider
-            .state('dashboard', {
-                'url' : '/dashboard',
+            .state('cmsj', {
+                'url' : '/cmsj',
                 //'controller' : '',
                 'templateUrl' : 'views/dashboard/main.html'
             })
-            .state('dashboard.home', {
+            .state('cmsj.home', {
                 'url' : '/home',
                 'controller' : 'MainController',
                 'templateUrl' : 'views/dashboard/home.html'
             })
-            .state('dashboard.contentList', {
-                'url' : '/contentList',
+            .state('cmsj.content', {
+                'url' : '/content',
+                'templateUrl' : 'views/content/main.html'
+            })
+            .state('cmsj.content.list', {
+                'url' : '/',
                 'templateUrl' : 'views/content/list.html'
             })
-            .state('dashboard.contentDetail', {
-                'url' : '/contentDetail',
+            .state('cmsj.content.detail', {
+                'url' : '/:contentId',
                 'templateUrl' : 'views/content/detail.html'
             });
     });
