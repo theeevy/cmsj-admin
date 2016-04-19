@@ -2,12 +2,9 @@
 
 angular.module('cmsj-admin', [  'ui.router',
                                 'ui.bootstrap',
-                                'ngResource',
-                                'datatables'])
+                                'ngResource'])
     .config(function($stateProvider, $urlRouterProvider, $resourceProvider){
         $urlRouterProvider.otherwise('/cmsj/home');
-
-        //$resourceProvider.stripTrailingSlashes();
 
         $stateProvider
             .state('cmsj', {
