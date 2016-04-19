@@ -43,6 +43,18 @@
         "fonts/fontawesome-webfont.woff",
         "fonts/fontawesome-webfont.woff2"
       ]
+    },
+    "datatables": {
+      "main" : [
+        "media/js/jquery.dataTables.js",
+        "media/js/dataTables.bootstrap.js",
+        "media/css/dataTables.bootstrap.css",
+        "media/images/sort_asc.png",
+        "media/images/sort_asc_disabled.png",
+        "media/images/sort_both.png",
+        "media/images/sort_desc.png",
+        "media/images/sort_desc_disabled.png"
+      ]
     }
   }
 }
