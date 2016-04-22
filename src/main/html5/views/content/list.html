@@ -48,7 +48,7 @@
                 <tbody>
                     <tr ng-repeat="x in content">
                         <td>{{ x.state }}</td>
-                        <td><a ui-sref="cmsj.content.detail({contentId: x.id})">{{ x.title }}</a></td>
+                        <td><a ui-sref="cmsj.content.detail({contentId: x.id})" ng-click="selectedItem=">{{ x.title }}</a></td>
                         <td>{{ x.access }}</td>
                         <td>{{ x.created_by }}</td>
                         <td>{{ x.language }}</td>

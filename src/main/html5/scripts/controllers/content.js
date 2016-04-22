@@ -4,19 +4,21 @@ angular.module('cmsj-admin')
             require: 'ngModel',
             link: function(scope, element, attrs, controller) {
                 controller.$formatters.push(function(value) {
-                    return value += 1;
+                    return value + 1;
                 });
                 controller.$parsers.push(function(value) {
-                    return value -= 1;
+                    return value - 1;
                 });
             }
         };
     })
     .controller('ContentController', function($scope, $http, $location, ContentService){
         $scope.content = [];
-        $scope.content.$paging = {}
+        $scope.content.$paging = {};
         $scope.content.$paging.number = 0;
-        $scope.content.$paging.size = '10'
+        $scope.content.$paging.size = '10';
+        $scope.selectedItem = {};
+        $scope.tinymceOptions = {};
 
         $scope.responseHandler = function(data){
             data.$paging.size += '';

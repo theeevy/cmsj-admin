@@ -2,6 +2,7 @@
 
 angular.module('cmsj-admin', [  'ui.router',
                                 'ui.bootstrap',
+                                'ui.tinymce',
                                 'ngResource'])
     .config(function($stateProvider, $urlRouterProvider, $resourceProvider){
         $urlRouterProvider.otherwise('/cmsj/home');
