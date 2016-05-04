@@ -12,7 +12,7 @@ angular.module('cmsj-admin')
             }
         };
     })
-    .controller('ContentController', function($scope, $http, $location, $state, ContentService){
+    .controller('ContentController', function($scope, $http, $location, $state, ContentService, TagService){
         $scope.content = [];
         $scope.content.$paging = {};
         $scope.content.$paging.number = 0;
@@ -33,13 +33,14 @@ angular.module('cmsj-admin')
             plugins: 'link image code pagebreak',
             width: 700,
             height: 600,
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | pagebreak code',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
             content_style: "img.mce-pagebreak {border: 1px dashed red;}"
         };
 
         console.log($state);
 
         $scope.$watch('text', function(){
+            if ($scope.selectedItem === undefined) return;
             //console.log('text was changed!');
             var parts = $scope.text.split('<!-- pagebreak -->');
             $scope.selectedItem.introtext = parts[0];
@@ -50,6 +51,23 @@ angular.module('cmsj-admin')
             data.$paging.size += '';
             $scope.content = data;
         };
+
+        $scope.testtest = function(){
+            TagService.get({id: 10}).$promise.then(function(data){
+               data.$mark({contentId:11}, function success(){
+                   console.log('marked');
+               });
+            });
+        };
+
+        $scope.testtest2 = function(){
+            TagService.get({id: 10}).$promise.then(function(data){
+                data.$unmark({contentId:11}, function success(){
+                    console.log('unmarked');
+                });
+            });
+        };
+
 
         ($scope.reload = function(){
             ContentService.page({
