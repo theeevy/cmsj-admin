@@ -3,7 +3,8 @@
 angular.module('cmsj-admin', [  'ui.router',
                                 'ui.bootstrap',
                                 'ui.tinymce',
-                                'ngResource'])
+                                'ngResource',
+                                'ngAnimate'])
     .config(function($stateProvider, $urlRouterProvider, $resourceProvider){
         $urlRouterProvider.otherwise('/cmsj/home');
 
@@ -15,7 +16,7 @@ angular.module('cmsj-admin', [  'ui.router',
             })
             .state('cmsj.home', {
                 'url' : '/home',
-                'controller' : 'MainController',
+                //'controller' : 'MainController',
                 'templateUrl' : 'views/dashboard/home.html'
             })
             .state('cmsj.content', {
@@ -29,5 +30,10 @@ angular.module('cmsj-admin', [  'ui.router',
             .state('cmsj.content.detail', {
                 'url' : '/:contentId',
                 'templateUrl' : 'views/content/detail.html'
+            })
+            .state('cmsj.media', {
+                'url' : '/media',
+                'controller' : 'MediaController',
+                'templateUrl' : 'views/media/list.html'
             });
     });

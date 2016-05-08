@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Медиатека</h1>
+    </div>
+</div>
+<div class="row">
+
+    <!--<div class="col-lg-4">-->
+    <!--<ul class="folder-list">-->
+    <!--<li class="bullet-collapse-{{ node.collapse }}"-->
+    <!--ng-repeat="node in fileTree | filter:filterDirs:strict" ng-init="node.collapse=false"-->
+    <!--ng-include="'views/media/treenode.html'"></li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <div class="col-lg-12"> <!-- 8 -->
+        <div class="row">
+            <div class="col-lg-12">
+                address
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="file-item-wrapper" ng-repeat="x in selectedFolder.children">
+                    <div class="file-item btn-default" ng-click="folderClick(x)">
+                        <div class="file-icon file-{{ x.itemType }}"></div>
+                        {{ x.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

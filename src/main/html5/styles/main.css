@@ -86,3 +86,96 @@ hr.editor-separator {
 text-decoration: none;
 background-color: #eee;
 }
+
+/* media tree styles */
+.bullet-collapse-true {
+  display: block;
+}
+
+.bullet-collapse-true:before
+{
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\f114";
+  font-family: FontAwesome;
+  font-size: 11px;
+  float: left;
+  margin-top: 4px;
+  margin-left: -17px;
+  color: #333;
+}
+.bullet-collapse-false {
+  display: block;
+}
+
+.bullet-collapse-false:before
+{
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\f115";
+  font-family: FontAwesome;
+  font-size: 11px;
+  float: left;
+  margin-top: 4px;
+  margin-left: -17px;
+  color: #333;
+}
+.folder-list {
+  padding-left : 20px;
+}
+
+/* file browser*/
+.file-item-wrapper
+{
+  display: inline-block;
+  width: 128px;
+  height: 192px;
+  padding: 7px;
+}
+
+.file-item
+{
+  overflow: hidden;
+  width:100%;
+  height:100%;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  padding-top: 10px;
+  word-wrap: break-word;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.file-icon
+{
+  display: inline-block;
+  width:96px;
+  height:96px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.file-DIR
+{
+  font-family: FontAwesome;
+  font-size: 48pt;
+  color:lightblue;
+}
+.file-DIR:before
+{
+  content:'\f07b';
+}
+
+.file-FILE
+{
+  font-family: FontAwesome;
+  font-size: 48pt;
+  color:lightblue;
+}
+.file-FILE:before
+{
+  content:'\f15b';
+}

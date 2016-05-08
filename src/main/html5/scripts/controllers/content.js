@@ -17,6 +17,13 @@ angular.module('cmsj-admin')
         $scope.content.$paging = {};
         $scope.content.$paging.number = 0;
         $scope.content.$paging.size = '10';
+        $scope.tinymceOptions = {
+            plugins: 'link image code pagebreak',
+            width: 800,
+            height: 600,
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+            content_style: "img.mce-pagebreak {border: 1px dashed red;}"
+        };
 
         $scope.text = 'intro_text<!-- pagebreak -->full_text';
 
@@ -24,20 +31,11 @@ angular.module('cmsj-admin')
             ContentService.get({ id : parseInt($state.params.contentId) }).$promise.then(function(data){
                 $scope.selectedItem = data;
                 $scope.text = $scope.selectedItem.introtext + '<!-- pagebreak -->' + $scope.selectedItem.fulltext;
+                TagService.query().$promise.then($scope.tagHandler);
             });
         }else{
             $scope.selectedItem = {};
         }
-
-        $scope.tinymceOptions = {
-            plugins: 'link image code pagebreak',
-            width: 700,
-            height: 600,
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
-            content_style: "img.mce-pagebreak {border: 1px dashed red;}"
-        };
-
-        console.log($state);
 
         $scope.$watch('text', function(){
             if ($scope.selectedItem === undefined) return;
@@ -47,34 +45,39 @@ angular.module('cmsj-admin')
             $scope.selectedItem.fulltext = parts[1];
         });
 
-        $scope.responseHandler = function(data){
+        $scope.contentHandler = function(data){
             data.$paging.size += '';
             $scope.content = data;
         };
 
-        $scope.testtest = function(){
-            TagService.get({id: 10}).$promise.then(function(data){
-               data.$mark({contentId:11}, function success(){
-                   console.log('marked');
-               });
+        $scope.tagHandler = function(data){
+            data.forEach(function(e,i,a){
+                e.$isMarked = false;
             });
-        };
 
-        $scope.testtest2 = function(){
-            TagService.get({id: 10}).$promise.then(function(data){
-                data.$unmark({contentId:11}, function success(){
-                    console.log('unmarked');
+            $scope.tags = data;
+
+            if ($scope.selectedItem !== undefined){
+                TagService.listByContentId({ contentId: $scope.selectedItem.id }).$promise.then(function(data){
+                    var markedTags = [];
+                    data.forEach(function(e,i,a){
+                        markedTags.push(e.id);
+                    });
+
+                    $scope.tags.forEach(function(e,i,a){
+                       if (markedTags.includes(e.id)){
+                           e.$isMarked = true;
+                       }
+                    });
                 });
-            });
+            }
         };
-
-
         ($scope.reload = function(){
             ContentService.page({
                 offset : $scope.content.$paging.number,
                 count :  $scope.content.$paging.size,
                 dir : "ASC",
                 column : "id"
-            }).$promise.then($scope.responseHandler);
+            }).$promise.then($scope.contentHandler);
         }).apply();
     });

@@ -4,17 +4,63 @@
             <h1 class="page-header">Статья "{{ selectedItem.title }}"</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-8">
-            <textarea ui-tinymce="tinymceOptions" ng-model="text"></textarea>
-        </div>
-        <div class="col-lg-4">
-            {{ selectedItem.introtext }}
-            <hr>
-            {{ selectedItem.fulltext }}
-            <hr>
-            <button type="button" class="btn btn-default" ng-click="testtest()">mark</button>
-            <button type="button" class="btn btn-default" ng-click="testtest2()">unmark</button>
-        </div>
-    </div>
+    <uib-tabset>
+        <uib-tab heading="Содержание">
+            <div class="row">
+                <div class="col-lg-8">
+                    <textarea ui-tinymce="tinymceOptions" ng-model="text"></textarea>
+                </div>
+                <div class="col-lg-4">
+                    {{ selectedItem.introtext }}
+                    <hr>
+                    {{ selectedItem.fulltext }}
+                    <hr>
+                    <button type="button" class="btn btn-default" ng-click="testtest()">mark</button>
+                    <button type="button" class="btn btn-default" ng-click="testtest2()">unmark</button>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Метки">
+            <div class="row">
+                <div class="col-lg-6" ng-init="markedFilter = {'$isMarked' : true}">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th width="50"></th>
+                            <th>Метки статьи</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in tags | filter:markedFilter:strict">
+                            <td>
+                                <button class="btn btn-xs btn-danger" ng-click="x.$isMarked = false"><i
+                                        class="fa fa-fw fa-minus"></i></button>
+                            </td>
+                            <td>{{ x.title }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6" ng-init="unmarkedFilter = {'$isMarked' : false}">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th width="50"></th>
+                            <th>Все метки</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in tags | filter:unmarkedFilter:strict">
+                            <td>
+                                <button class="btn btn-xs btn-success" ng-click="x.$isMarked = true"><i
+                                        class="fa fa-fw fa-plus"></i></button>
+                            </td>
+                            <td>{{ x.title }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
 </div>
