@@ -17,7 +17,7 @@ const
 
 
 gulp.task('serve', function(){
-    var proxyOptions = require('url').parse('http://localhost:8080/entity');
+    var proxyOptions = require('url').parse('http://80.92.97.165:8080/entity');
     proxyOptions.route = '/entity';
 
     browserSync({
