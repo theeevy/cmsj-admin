@@ -123,6 +123,11 @@ background-color: #eee;
 }
 
 /* file browser*/
+.file-container {
+    overflow:auto;
+    max-height: 700px;
+}
+
 .file-item-wrapper
 {
   display: inline-block;
@@ -154,9 +159,15 @@ background-color: #eee;
   display: inline-block;
   width:96px;
   height:96px;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
 }
+
+.file-icon img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 
 .file-DIR
 {
@@ -178,4 +189,8 @@ background-color: #eee;
 .file-FILE:before
 {
   content:'\f15b';
+}
+
+.popover {
+  max-width: none;
 }

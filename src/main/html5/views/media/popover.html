@@ -1,0 +1,6 @@
+<div>
+    <img ng-if="x.itemType == 'FILE'" src="{{ x.uri }}" />
+    <ul ng-if="x.itemType == 'DIR'">
+        <li ng-repeat="y in x.children">{{ y.name }}</li>
+    </ul>
+</div>

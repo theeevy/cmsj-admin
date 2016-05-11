@@ -1,5 +1,0 @@
-<span ng-click="folderClick(node)">{{node.name}}</span>
-<ul class="folder-list" uib-collapse="node.collapse">
-    <li class="bullet-collapse-{{ node.collapse }}" ng-repeat="node in node.children | filter:filterDirs:strict"
-        ng-init="node.collapse=true" ng-include="'views/media/treenode.html'"></li>
-</ul>

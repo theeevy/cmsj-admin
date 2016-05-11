@@ -4,6 +4,7 @@ angular.module('cmsj-admin')
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/media/list.html',
                 controller: 'MediaController',
+                size: 'lg'
                 //resolve: {
                 //    items: function () {
                 //        return $scope.items;
