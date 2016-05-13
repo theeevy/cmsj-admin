@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="modal-header">
+    <h3 class="modal-title">I'm a modal!</h3>
+</div>
+<div class="modal-body">
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th width="50"></th>
+            <th>Имя</th>
+            <th width="100">Пропорция</th>
+            <th width="100">Размер</th>
+        </tr>
+        </thead>
+        <tbody ng-init="arr=[0,1,2,3,4,5,6]">
+        <tr ng-repeat="x in arr">
+            <td><button ng-click="arr.splice($index,1)"><i class="fa fa-fw fa-times"></i></button></td>
+            <td>file{{ x }}.jpg</td>
+            <td>1280x720</td>
+            <td>1.0mB</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

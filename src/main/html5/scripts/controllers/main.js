@@ -2,8 +2,8 @@ angular.module('cmsj-admin')
     .controller('MainController', function($scope, $uibModal){
         $scope.open = function(){
             var modalInstance = $uibModal.open({
-                templateUrl: 'views/media/list.html',
-                controller: 'MediaController',
+                templateUrl: 'views/media/upload.html',
+                controller: 'ImageUploadController',
                 size: 'lg'
                 //resolve: {
                 //    items: function () {

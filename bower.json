@@ -21,7 +21,8 @@
     "Chart.js": "^1.1.1",
     "angular-chart.js": "^0.9.0",
     "angular-ui-tinymce": "^0.0.15",
-    "tinymce": "tinymce-dist#^4.3.10"
+    "tinymce": "tinymce-dist#^4.3.10",
+    "ng-cropper": "^0.4.1"
   },
   "devDependencies": {},
   "overrides": {
@@ -50,8 +51,8 @@
         "src/tinymce.js"
       ]
     },
-    "tinymce-dist":{
-      "main":[
+    "tinymce-dist": {
+      "main": [
         "tinymce.js"
       ]
     }

@@ -124,8 +124,8 @@ background-color: #eee;
 
 /* file browser*/
 .file-container {
-    overflow:auto;
-    max-height: 700px;
+    /*overflow:auto;*/
+    /*max-height: 700px;*/
 }
 
 .file-item-wrapper
