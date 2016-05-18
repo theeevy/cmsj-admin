@@ -12,7 +12,8 @@ const
     paths = {
         app : './src/main/html5/',
         tmp : './target/.tmp/',
-        dist: './src/main/webapp/'
+        dist: './src/main/webapp/',
+        img : '/mnt/st/development/mototeamrussia/bS/'
     };
 
 
@@ -24,14 +25,14 @@ gulp.task('serve', function(){
         notify: false,
         port: 9000,
         server: {
-            baseDir: [paths.tmp, paths.app, 'D:/development/mototeamrussia/bS'],
+            baseDir: [paths.tmp, paths.app, paths.img],
             routes: {
                 '/bower_components': 'bower_components'
             },
             middleware: [proxy(proxyOptions)]
         }
     });
-})
+});
 
 gulp.task('inject', function(){
     var target = gulp.src(path.join(paths.app, 'index.html'));
@@ -41,4 +42,4 @@ gulp.task('inject', function(){
         .pipe(inject(gulp.src(bowerFiles(), { read : false}), { name : 'inject_bower'}))
         .pipe(inject(sources))
         .pipe(gulp.dest(paths.app));
-})
+});
