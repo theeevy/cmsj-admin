@@ -19,11 +19,11 @@ angular.module('cmsj-admin')
             //});
         };
 
+        console.log($);
         $(function(){
-            var dropZone = $('#dropZone'),
+            var dropZone = angular.element('#dropZone'),
                 maxFileSize = 1000000; // максимальный размер файла - 1 мб.
-            console.log(dropZone);
-            window.alert("fgh");
+            //console.log(dropZone[0]);
 
 
             if (typeof(window.FileReader) == 'undefined') {
@@ -31,24 +31,34 @@ angular.module('cmsj-admin')
                 dropZone.addClass('error');
             }
 
-            dropZone[0].on('dragover', function() {
+            dropZone.on('dragover', function() {
                 //window.alert('dragover');
                 dropZone.addClass('hover');
                 return false;
             });
 
-            dropZone[0].on('dragleave', function() {
+            dropZone.on('dragleave', function() {
                 //window.alert('dragleave');
                 dropZone.removeClass('hover');
                 return false;
             });
 
-            dropZone[0].on('drop', function(event) {
-                //window.alert('drop');
+            dropZone.on('drop', function(event) {
                 event.preventDefault();
                 dropZone.removeClass('hover');
                 dropZone.addClass('drop');
+
+                console.log(event);
+                console.log(event.originalEvent.dataTransfer.files);
+                var file = event.originalEvent.dataTransfer.files[0];
+
+                if (file.size > maxFileSize) {
+                    dropZone.text('Файл слишком большой!');
+                    dropZone.addClass('error');
+                    dropZone.removeClass('drop');
+                    return false;
+                }
             });
-        })
+        });
 
     });
