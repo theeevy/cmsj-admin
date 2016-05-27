@@ -1,12 +1,15 @@
 package ru.mototeamrussia.cmsj.admin.controllers
 
+import java.nio.file.attribute.FileAttribute
 import java.nio.file.{Path, Paths, Files}
 import java.util
 import java.util.function.Consumer
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.env.Environment
-import org.springframework.web.bind.annotation.{RequestMapping, RestController}
+import org.springframework.web.bind.annotation.{RequestParam, RequestMethod, RequestMapping, RestController}
+import org.springframework.web.multipart.MultipartFile
 import ru.mototeamrussia.cmsj.persistence.entities.{MediaItemType, MediaItem}
 
 import scala.collection.mutable.Buffer
@@ -19,10 +22,12 @@ import scala.collection.JavaConversions._
 @RestController
 @RequestMapping(Array("/entity/media"))
 class MediaController {
+  val log = LoggerFactory.getLogger(classOf[MediaController])
+
   @Autowired
   var env : Environment = _
 
-  @RequestMapping(Array("filetree"))
+  @RequestMapping(Array("/filetree"))
   def showFileTree : java.util.List[MediaItem] = {
     var result : Buffer[MediaItem] = Buffer.empty[MediaItem]
     Files.walk(Paths.get(env.getRequiredProperty("cmsj.path_to_images"))).forEach( new Consumer[Path]{
@@ -75,4 +80,20 @@ class MediaController {
     })
     result
   }
+
+  @RequestMapping(Array("/mkdir"))
+  def doMkDir(@RequestParam path: String) : MediaItem = {
+    val dirPath = Files.createDirectory(Paths.get(env.getRequiredProperty("cmsj.path_to_images") + path))
+
+    new MediaItem(dirPath.toFile.getName, MediaItemType.DIR, new util.ArrayList[MediaItem])
+  }
+
+  @RequestMapping(path = Array("/upload"), method = Array(RequestMethod.POST))
+  def doUpload(@RequestParam("blob") blob : MultipartFile ) : Unit = {
+    log.info("name: " + blob.getName)
+    log.info("originalFilename: " + blob.getOriginalFilename)
+    log.info("contentType: " + blob.getContentType)
+    log.info("size: " + blob.getSize)
+  }
+
 }

@@ -1,8 +1,9 @@
 angular.module('cmsj-admin')
-    .controller('MediaController', function ($scope, $sce, MediaService) {
+    .controller('MediaController', function ($scope, $sce, $uibModal, MediaService) {
         $scope.fileTree = [];
         $scope.selectedFolder = {};
         $scope.viewMode = false;
+        $scope.dropGhost = false;
 
         $scope.folderClick = function(node){
             if(node.itemType === "FILE"){
@@ -61,4 +62,81 @@ angular.module('cmsj-admin')
                     console.error(data);
                 });
         }).apply();
+
+        $(function(){
+            var dropZone = angular.element('#dropZone');
+
+
+            if (typeof(window.FileReader) == 'undefined') {
+                //dropZone.text('Не поддерживается браузером!');
+                //dropZone.addClass('error');
+            }
+
+            dropZone.on('dragover', function(event) {
+                if (event.target == this) {
+                    return;
+                }
+
+                var scope = angular.element(this).scope();
+                scope.$apply(function(){
+                    scope.dropGhost = true;
+                });
+
+                var scrollPosition;
+
+                if (scope.viewMode) {
+                    scrollPosition = $('#dropGhostRow').offset();
+                }else{
+                    scrollPosition = $('#dropGhostIcon').offset();
+                }
+
+                $.scrollTo(scrollPosition);
+                    //.dropGhost = true;
+                //$scope.dropGhost = true;
+                dropZone.addClass('hover');
+                return false;
+            });
+
+            dropZone.on('dragleave', function(event) {
+                if(event.originalEvent.pageX != 0 && event.originalEvent.pageY != 0){
+                    return false;
+                }
+
+                var scope = angular.element(this).scope();
+                scope.$apply(function(){
+                    scope.dropGhost = false;
+                });
+                dropZone.removeClass('hover');
+                return false;
+            });
+
+            dropZone.on('drop', function(event) {
+                event.preventDefault();
+
+                var scope = angular.element(this).scope();
+
+                scope.$apply(function(){
+                    scope.dropGhost = false;
+                });
+
+                scope.onFilesDropped(event.originalEvent.dataTransfer.files);
+            });
+        });
+
+        $scope.onFilesDropped = function(files){
+            var modalInstance = $uibModal.open({
+                templateUrl: 'views/media/upload.html',
+                controller: 'ImageUploadController',
+                size: 'lg',
+                backdrop: 'static',
+                resolve: {
+                    files: function () {
+                        return files;
+                    },
+                    selectedFolder: function(){
+                        return $scope.selectedFolder;
+                    }
+                }
+            });
+        };
     });

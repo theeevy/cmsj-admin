@@ -1,7 +1,7 @@
 <div class="modal-header">
-    <h3 class="modal-title">I'm a modal!</h3>
+    <h3 class="modal-title">Загрузка изображений...</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body" ng-init="pageCount = 1 + files.length + 1">
     <div uib-collapse="currentPage != 1">
         <table class="table table-hover table-striped">
             <thead>
@@ -11,43 +11,54 @@
                     <th width="100">Пропорция</th>
                     <th width="100">Размер</th>
                 </tr>
+                <tr>
+                    <th colspan="4">В папку: /{{ selectedFolder.uri }}/</th>
+                </tr>
             </thead>
-            <tbody ng-init="arr=[0,1,2,3,4,5,6]">
-                <tr ng-repeat="x in arr">
-                    <td><button ng-click="arr.splice($index,1)"><i class="fa fa-fw fa-times"></i></button></td>
-                    <td>file{{ x }}.jpg</td>
-                    <td>1280x720</td>
-                    <td>1.0mB</td>
+            <tbody>
+                <tr ng-repeat="x in files">
+                    <td><button ng-click="files.splice($index,1)"><i class="fa fa-fw fa-times"></i></button></td>
+                    <td>{{ x.name }}</td>
+                    <td>{{ x.resolution.x }} x {{ x.resolution.y }}</td>
+                    <td>{{ x.size | filesize }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div ng-repeat="x in [2, 3]" uib-collapse="currentPage != x">
-        <input type="file" onchange="angular.element(this).scope().onFile(this.files[0])"> <!--.scope().onFile(this.files[0])-->
-        <button ng-click="preview()">Show preview</button>
-        <button ng-click="scale(200)">Scale to 200px width</button>
-        <button ng-click="clear()">Clear selection</button>
-        <label>Disabled <input type="checkbox" ng-model="options.disabled"></label>
+    <div ng-repeat="x in files" uib-collapse="currentPage != ($index+2)">
+        <h3>{{ x.name }}</h3>
+        <!--<input type="file" onchange="angular.element(this).scope().onFile(this.files[0])"> &lt;!&ndash;.scope().onFile(this.files[0])&ndash;&gt;-->
+        <!--<button ng-click="preview()">Show preview</button>-->
+        <!--<button ng-click="scale(200)">Scale to 200px width</button>-->
+        <!--<button ng-click="clear()">Clear selection</button>-->
+        <!--<label>Disabled <input type="checkbox" ng-model="options.disabled"></label>-->
 
         <br />
 
-        <div ng-if="dataUrl" class="img-container">
-            <img ng-if="dataUrl" ng-src="{{dataUrl}}" width="800"
+        <!--<img src="{{ x.dataUrl }}" />-->
+
+        <div ng-if="x.dataUrl">
+            <img ng-if="x.dataUrl" ng-src="{{x.dataUrl}}"
                  ng-cropper
-                 ng-cropper-proxy="cropperProxy"
-                 ng-cropper-show="showEvent"
-                 ng-cropper-hide="hideEvent"
-                 ng-cropper-options="options">
+                 ng-cropper-proxy="x.cropperProxy"
+                 ng-cropper-show="x.showCropperEvent"
+                 ng-cropper-hide="x.hideCropperEvent"
+                 ng-cropper-options="x.cropperOptions">
         </div>
 
-        <div class="preview-container">
-            <img ng-if="preview.dataUrl" ng-src="{{preview.dataUrl}}">
-        </div>
+        <button class="btn btn-default" ng-click="doCrop(x)">crop</button>
+        <!--<div class="preview-container">-->
+            <!--<img ng-if="preview.dataUrl" ng-src="{{preview.dataUrl}}">-->
+        <!--</div>-->
+    </div>
+    <div uib-collapse="currentPage != pageCount">
+
+        <button ng-if="currentPage == pageCount" class="btn btn-success">Загрузить и закрыть</button>
     </div>
 
-    <uib-pager total-items="totalItems" ng-model="currentPage"></uib-pager>
+    <uib-pager total-items="pageCount" items-per-page="1" ng-model="currentPage"></uib-pager>
 </div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-</div>
+<!--<div class="modal-footer">-->
+    <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+    <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+<!--</div>-->
