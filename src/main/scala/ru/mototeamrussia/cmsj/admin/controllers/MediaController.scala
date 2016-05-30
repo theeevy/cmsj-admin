@@ -89,11 +89,13 @@ class MediaController {
   }
 
   @RequestMapping(path = Array("/upload"), method = Array(RequestMethod.POST))
-  def doUpload(@RequestParam("blob") blob : MultipartFile ) : Unit = {
+  def doUpload(@RequestParam("blob") blob : MultipartFile ) : MediaItem = {
     log.info("name: " + blob.getName)
     log.info("originalFilename: " + blob.getOriginalFilename)
     log.info("contentType: " + blob.getContentType)
     log.info("size: " + blob.getSize)
+
+    new MediaItem(blob.getOriginalFilename, MediaItemType.FILE, new util.ArrayList[MediaItem])
   }
 
 }

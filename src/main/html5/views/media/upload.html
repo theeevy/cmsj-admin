@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3 class="modal-title">Загрузка изображений...</h3>
 </div>
-<div class="modal-body" ng-init="pageCount = 1 + files.length + 1">
+<div class="modal-body">
     <div uib-collapse="currentPage != 1">
         <table class="table table-hover table-striped">
             <thead>
@@ -17,13 +17,16 @@
             </thead>
             <tbody>
                 <tr ng-repeat="x in files">
-                    <td><button ng-click="files.splice($index,1)"><i class="fa fa-fw fa-times"></i></button></td>
+                    <td><button ng-click="files.removeOne($index)"><i class="fa fa-fw fa-times"></i></button></td>
                     <td>{{ x.name }}</td>
                     <td>{{ x.resolution.x }} x {{ x.resolution.y }}</td>
                     <td>{{ x.size | filesize }}</td>
                 </tr>
             </tbody>
         </table>
+        <div class="row text-center">
+            <button type="button" class="btn btn-danger btn-circle" ng-click="currentPage = pageCount"><i class="fa fa-fw fa-fast-forward"></i></button>
+        </div>
     </div>
     <div ng-repeat="x in files" uib-collapse="currentPage != ($index+2)">
         <h3>{{ x.name }}</h3>
@@ -38,7 +41,7 @@
         <!--<img src="{{ x.dataUrl }}" />-->
 
         <div ng-if="x.dataUrl">
-            <img ng-if="x.dataUrl" ng-src="{{x.dataUrl}}"
+            <img ng-if="x.dataUrl" ng-src="{{x.dataUrl}}" width="800" height="600"
                  ng-cropper
                  ng-cropper-proxy="x.cropperProxy"
                  ng-cropper-show="x.showCropperEvent"
@@ -46,17 +49,39 @@
                  ng-cropper-options="x.cropperOptions">
         </div>
 
-        <button class="btn btn-default" ng-click="doCrop(x)">crop</button>
         <!--<div class="preview-container">-->
             <!--<img ng-if="preview.dataUrl" ng-src="{{preview.dataUrl}}">-->
         <!--</div>-->
     </div>
     <div uib-collapse="currentPage != pageCount">
-
-        <button ng-if="currentPage == pageCount" class="btn btn-success">Загрузить и закрыть</button>
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Имя</th>
+                <th width="100">Изнач. проп.</th>
+                <th width="100">Новая проп.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="x in files">
+                <td>{{ x.name }}</td>
+                <td>{{ x.resolution.x }} x {{ x.resolution.y }}</td>
+                <td>{{ x.cropData | cropdata}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="showProgressBar" class="progress progress-striped active">
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ progressBarValue }}%">
+                <!--<span class="sr-only">100% Complete (success)</span>-->
+            </div>
+        </div>
+        <div class="row text-center">
+            <button type="button" class="btn btn-primary btn-circle" ng-click="currentPage = currentPage - 1"><i class="fa fa-fw fa-arrow-left"></i></button>
+            <button type="button" class="btn btn-success btn-circle btn-xl" ng-click="uploadAll()"><i class="fa fa-fw fa-upload"></i></button>
+        </div>
     </div>
 
-    <uib-pager total-items="pageCount" items-per-page="1" ng-model="currentPage"></uib-pager>
+    <uib-pager previous-text="« Назад" next-text="Вперед »" uib-collapse="currentPage == pageCount" total-items="pageCount" items-per-page="1" ng-model="currentPage"></uib-pager>
 </div>
 <!--<div class="modal-footer">-->
     <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
