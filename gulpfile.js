@@ -16,6 +16,9 @@ const
         img : '/mnt/st/development/mototeamrussia/bS/'
     };
 
+gulp.task('', function(){
+
+});
 
 gulp.task('serve', function(){
     var proxyOptions = require('url').parse('http://localhost:8080/entity');
