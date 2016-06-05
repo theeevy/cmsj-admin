@@ -30,6 +30,17 @@ angular.module('cmsj-admin')
         //    return uri;
         //};
 
+        $scope.constructUriAndParts = function(node, parts){
+            node.uri = '';
+            node.pathParts = parts.slice(0);
+            node.pathParts.forEach(function(e,i,a){
+                node.uri += e.name + '/';
+            });
+
+            node.pathParts.push(node);
+            node.uri += node.name;
+        };
+
         ($scope.load = function () {
             MediaService.query()
                 .success(function (data, status, headers, config) {
@@ -40,20 +51,20 @@ angular.module('cmsj-admin')
                             parts = [];
                         }
 
-                        node.uri = '';
-                        node.pathParts = parts.slice(0);
-                        node.pathParts.forEach(function(e,i,a){
-                            node.uri += e.name + '/';
-                        });
-
-                        node.pathParts.push(node);
-                        node.uri += node.name;
+                        $scope.constructUriAndParts(node,parts);
+                        //node.uri = '';
+                        //node.pathParts = parts.slice(0);
+                        //node.pathParts.forEach(function(e,i,a){
+                        //    node.uri += e.name + '/';
+                        //});
+                        //
+                        //node.pathParts.push(node);
+                        //node.uri += node.name;
 
                         node.children.forEach(function(e,i,a){
 
                             buildPathParts(e,node.pathParts);
                         });
-
                     })($scope.fileTree[0]);
 
                     $scope.selectedFolder = data[0];
@@ -139,4 +150,23 @@ angular.module('cmsj-admin')
                 }
             });
         };
+
+        $scope.onMakeDir = function(){
+            var modalInstance = $uibModal.open({
+                templateUrl: 'views/media/mkdir.html',
+                controller: 'MediaMakeDirController',
+                backdrop: 'static',
+                resolve: {
+                    selectedFolder: function(){
+                        return $scope.selectedFolder;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (newDir) {
+                $scope.selectedFolder.children.push(newDir);
+                $scope.constructUriAndParts(newDir,$scope.selectedFolder.pathParts);
+                $scope.selectedFolder = newDir;
+            });
+        }
     });

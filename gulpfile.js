@@ -13,7 +13,7 @@ const
         app : './src/main/html5/',
         tmp : './target/.tmp/',
         dist: './src/main/webapp/',
-        img : '/mnt/st/development/mototeamrussia/bS/'
+        img : 'D:\\development\\mototeamrussia\\bS\\'
     };
 
 gulp.task('', function(){

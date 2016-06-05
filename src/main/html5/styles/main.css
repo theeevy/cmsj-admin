@@ -236,3 +236,8 @@ background-color: #eee;
   /*background: #afa;*/
   /*border-color: #0f0;*/
 }
+
+#popoverSource {
+  max-width: 512px;
+  max-height: 512px;
+}
