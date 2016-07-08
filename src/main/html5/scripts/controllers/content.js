@@ -50,6 +50,20 @@ angular.module('cmsj-admin')
             $scope.content = data;
         };
 
+        $scope.toggleMark = function(item){
+            if (item.$isMarked == true){
+                console.log('test test test === ' + $scope.selectedItem.id);
+                TagService.unmark({ contentId : $scope.selectedItem.id, tagId : item.id }).$promise.then(function(resp){
+                    item.$isMarked = false;
+                })
+            }else{
+                TagService.mark({ contentId : $scope.selectedItem.id, tagId : item.id }).$promise.then(function(resp){
+                    item.$isMarked = true;
+                })
+            }
+
+        };
+
         $scope.tagHandler = function(data){
             data.forEach(function(e,i,a){
                 e.$isMarked = false;
@@ -72,6 +86,7 @@ angular.module('cmsj-admin')
                 });
             }
         };
+
         ($scope.reload = function(){
             ContentService.page({
                 offset : $scope.content.$paging.number,

@@ -55,10 +55,11 @@ class TagController {
     tags
   }
 
-  @RequestMapping(path = Array("/mark/contentId={contentId}"), method = Array(RequestMethod.PUT))
-  def doMark( @PathVariable contentId : Integer,
-              @RequestBody tag : TagEntity) : Unit = {
+  @RequestMapping(path = Array("/mark"), method = Array(RequestMethod.GET))
+  def doMark( @RequestParam contentId : Integer,
+              @RequestParam tagId : Integer) : Unit = {
     val content = contentRepostiory.findOne(contentId)
+    val tag = tagRepository.findOne(tagId)
 
     val c2t = new ContentTagEntity
     c2t.setId(new ContentTagEntityPK(content,tag,1))
@@ -68,10 +69,11 @@ class TagController {
     contentTagRepository.save(c2t)
   }
 
-  @RequestMapping(path = Array("/unmark/contentId={contentId}"), method = Array(RequestMethod.PUT))
-  def doUnmark(@PathVariable contentId : Integer,
-               @RequestBody tag : TagEntity) : Unit = {
+  @RequestMapping(path = Array("/unmark"), method = Array(RequestMethod.GET))
+  def doUnmark(@RequestParam contentId : Integer,
+               @RequestParam tagId : Integer) : Unit = {
     val content = contentRepostiory.findOne(contentId)
+    val tag = tagRepository.findOne(tagId)
 
     contentTagRepository.delete(new ContentTagEntityPK(content,tag,1))
   }

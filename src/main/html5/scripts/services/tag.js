@@ -13,18 +13,12 @@ angular.module('cmsj-admin')
                 isArray: true
             },
             mark : {
-                method: 'PUT',
-                url: '/entity/tag/mark/contentId=:contentId',
-                params: {
-                    contentId: 0
-                }
+                method: 'GET',
+                url: '/entity/tag/mark'
             },
             unmark : {
-                method: 'PUT',
-                url: '/entity/tag/unmark/contentId=:contentId',
-                params: {
-                    contentId: 0
-                }
+                method: 'GET',
+                url: '/entity/tag/unmark'
             }
         });
     });

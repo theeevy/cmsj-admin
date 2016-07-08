@@ -33,7 +33,7 @@
                         <tbody>
                         <tr ng-repeat="x in tags | filter:markedFilter:strict">
                             <td>
-                                <button class="btn btn-xs btn-danger" ng-click="x.$isMarked = false"><i
+                                <button class="btn btn-xs btn-danger" ng-click="toggleMark(x)"><i
                                         class="fa fa-fw fa-minus"></i></button>
                             </td>
                             <td>{{ x.title }}</td>
@@ -52,7 +52,7 @@
                         <tbody>
                         <tr ng-repeat="x in tags | filter:unmarkedFilter:strict">
                             <td>
-                                <button class="btn btn-xs btn-success" ng-click="x.$isMarked = true"><i
+                                <button class="btn btn-xs btn-success" ng-click="toggleMark(x)"><i
                                         class="fa fa-fw fa-plus"></i></button>
                             </td>
                             <td>{{ x.title }}</td>
@@ -61,6 +61,9 @@
                     </table>
                 </div>
             </div>
+        </uib-tab>
+        <uib-tab heading="Параметры">
+
         </uib-tab>
     </uib-tabset>
 </div>
