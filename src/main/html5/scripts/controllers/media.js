@@ -1,5 +1,5 @@
 angular.module('cmsj-admin')
-    .controller('MediaController', function ($scope, $sce, $uibModal, MediaService) {
+    .controller('MediaController', function ($scope, $sce, $uibModal, MediaService){
         $scope.fileTree = [];
         $scope.selectedFolder = {};
         $scope.viewMode = false;
@@ -10,7 +10,7 @@ angular.module('cmsj-admin')
                 return;
             }
             var containsFolder = false;
-            node.children.forEach(function(item, i, arr) {
+            node.children.forEach(function(item, i, arr){
                 if (item.itemType == "DIR") containsFolder = true;
             });
 
@@ -41,9 +41,9 @@ angular.module('cmsj-admin')
             node.uri += node.name;
         };
 
-        ($scope.load = function () {
+        ($scope.load = function (){
             MediaService.query()
-                .success(function (data, status, headers, config) {
+                .success(function (data, status, headers, config){
                     $scope.fileTree = data;
 
                     (function buildPathParts(node, parts){
@@ -69,7 +69,7 @@ angular.module('cmsj-admin')
 
                     $scope.selectedFolder = data[0];
                 })
-                .error(function (data, status, headers, config) {
+                .error(function (data, status, headers, config){
                     console.error(data);
                 });
         }).apply();
@@ -121,7 +121,7 @@ angular.module('cmsj-admin')
                 return false;
             });
 
-            dropZone.on('drop', function(event) {
+            dropZone.on('drop', function(event){
                 event.preventDefault();
 
                 var scope = angular.element(this).scope();
@@ -141,7 +141,7 @@ angular.module('cmsj-admin')
                 size: 'lg',
                 backdrop: 'static',
                 resolve: {
-                    files: function () {
+                    files: function (){
                         return files;
                     },
                     selectedFolder: function(){
@@ -163,7 +163,7 @@ angular.module('cmsj-admin')
                 }
             });
 
-            modalInstance.result.then(function (newDir) {
+            modalInstance.result.then(function (newDir){
                 $scope.selectedFolder.children.push(newDir);
                 $scope.constructUriAndParts(newDir,$scope.selectedFolder.pathParts);
                 $scope.selectedFolder = newDir;

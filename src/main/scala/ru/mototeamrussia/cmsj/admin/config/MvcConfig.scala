@@ -20,9 +20,10 @@ import org.springframework.web.servlet.view.velocity.{VelocityViewResolver, Velo
 class MvcConfig extends WebMvcConfigurerAdapter {
 
   override def addResourceHandlers(registry: ResourceHandlerRegistry): Unit = {
+    registry.addResourceHandler("/maps/**").addResourceLocations("/maps/")
+    registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/")
     registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/")
     registry.addResourceHandler("/styles/**").addResourceLocations("/styles/")
-    registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/")
   }
 
   override def configureDefaultServletHandling(configurer: DefaultServletHandlerConfigurer): Unit = configurer.enable()

@@ -49,7 +49,7 @@ angular.module('cmsj-admin')
                         }
                     };
 
-                    xhr.upload.onload = function(event) {
+                    xhr.upload.onload = function(event){
                         isLoad[i] = true;
                         var isAllLoaded = true;
                         isLoad.forEach(function(eLoaded){ isAllLoaded = isAllLoaded && eLoaded });

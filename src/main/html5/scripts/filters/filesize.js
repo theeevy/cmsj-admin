@@ -1,5 +1,5 @@
 angular.module('cmsj-admin')
-    .filter('filesize', function () {
+    .filter('filesize', function (){
         return function (size) {
             if (isNaN(size))
                 size = 0;
